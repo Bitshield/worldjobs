@@ -29,7 +29,7 @@ mongoose
 
 app.get('/',async (req, res) => {
    await redisClient.set('order','order.....done')
-    res.send('<h2>Welcome!!!!!------->0000000<------</h2>');
+    res.send('<h2>Welcome!!!!!------->hello github<------</h2>');
 });
 
 app.get('/data', async(req, res) => {
