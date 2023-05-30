@@ -1,6 +1,7 @@
 const  express = require ( 'express');
+const mongoose = require ( 'mongoose' );
 const redis = require ( 'redis' );
-const {Client} = require ('pg')
+
 
 
 //! configuration for server with express 
@@ -17,21 +18,18 @@ redisClient.connect();
 
 
 //? configuration of postgres database
-const URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}`;
-const client = new Client({connectionString: URI});
-
-client
-.connect()
-.then(() => console.log('connect to postgres database 🚀'))
-.catch ((err) => console.log("Failed to connect DATABASE 🪓",err));
-
+const URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}`;
+mongoose
+.connect(URI)
+.then(() => console.log('connect to mogoose database 🚀'))
+.catch ((err) => console.log("Failed to connect DATABASE",err));
 
 
 
 
 app.get('/',async (req, res) => {
    await redisClient.set('order','order.....done')
-    res.send('<h2>Welcome!!!!!------->0<------</h2>');
+    res.send('<h2>Welcome!!!!!------->0000000<------</h2>');
 });
 
 app.get('/data', async(req, res) => {
