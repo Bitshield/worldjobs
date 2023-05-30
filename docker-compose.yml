@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  node-app:
+    container_name: blackjobs  
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+ 
+
+  redis:
+    image: redis
+
+
+
+  nginx:
+   image: nginx:stable-alpine
+   ports:
+    - "80:80"
+   volumes:
+     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+   depends_on:
+     - node-app
+
+
+volumes:
+  #  mongo-db:
+   postgres-db:
+
+
+
+
+  # mongo:
+  #   image: mongo
+  #   restart: always
+  #   volumes:
+  #     - mongo-db:/data/db
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: root
+
+  # mongo-express:
+  #    image: mongo-express
+  #    restart: always
+  #    ports:
+  #      - 8081:8081
+  #    environment:
+  #      ME_COFIG_MONGODB_ADMINUSERNAME: root
+  #      ME_COFIG_MONGODB_ADMINPASSWORD: root
+  #      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
+  #    depends_on:
+  #      - mongo
