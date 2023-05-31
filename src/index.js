@@ -1,10 +1,10 @@
 const  express = require ( 'express');
 const mongoose = require ( 'mongoose' );
 const redis = require ( 'redis' );
+const os = require ( 'os' );
 
 
-
-//! configuration for server with express 
+// configuration for server with express 
 const port =process.env.PORT || 8000;
 const app = express();
 
@@ -17,7 +17,7 @@ redisClient.on('connect', () => console.log('Redis Connected Success 🛩️'));
 redisClient.connect();
 
 
-//? configuration of postgres database
+// configuration of postgres database
 const URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}`;
 mongoose
 .connect(URI)
@@ -29,7 +29,8 @@ mongoose
 
 app.get('/',async (req, res) => {
    await redisClient.set('order','order.....done')
-    res.send('<h2>Welcome!!!!!------->hello github<------</h2>');
+   console.log(`trafic from ====> ${os.hostname} 🔥,....${os.port} 🏹,....${os.homedir} 😄`)
+    res.send('<h2>Welcome!!!!!------->hello github watch tower :) ☺️<------</h2>');
 });
 
 app.get('/data', async(req, res) => {

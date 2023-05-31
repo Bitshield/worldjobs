@@ -2,12 +2,20 @@ version: '3'
 
 services:
   node-app:
-    container_name: blackjobs  
+    # container_name: blackjobs  
     image: mohamedrayess/blackjobs
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"
     env_file:
       - ./.env
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
     depends_on:
       - mongo
       - redis
@@ -32,7 +40,7 @@ services:
        ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
      depends_on:
        - mongo
- 
+
 
   redis:
     image: redis
